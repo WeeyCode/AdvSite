@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Segurança da Informação | Wesley Martins Jardim OAB/SP 518.369</title>
+<meta name="description" content="Medidas técnicas e organizacionais adotadas neste site">
+<meta name="author" content="Wesley Martins Jardim - OAB/SP 518.369">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#16202e">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Wesley Martins Jardim">
+<meta property="og:title" content="Segurança da Informação | Wesley Martins Jardim OAB/SP 518.369">
+<meta property="og:description" content="Medidas técnicas e organizacionais adotadas neste site">
+<meta name="twitter:card" content="summary">
+<link rel="icon" type="image/svg+xml" href="static/favicon.svg">
+<link rel="stylesheet" href="static/vendor/fa/css/all.min.css">
+<link rel="stylesheet" href="static/site.css">
+
+</head>
+<body>
+<a class="skip-link" href="#main">Ir para o conteúdo</a>
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span><i class="fas fa-id-card" aria-hidden="true"></i>OAB/SP 518.369</span>
+      <a href="mailto:wesley.martins.jardim@adv.oabsp.org.br"><i class="fas fa-envelope" aria-hidden="true"></i>wesley.martins.jardim@adv.oabsp.org.br</a>
+      <a href="https://wa.me/5512992136428?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20um%20atendimento." target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp" aria-hidden="true"></i>(12) 99213-6428</a>
+    </div>
+    <div class="topbar-right">Atendimento no Litoral Norte de SP e digital</div>
+  </div>
+</div>
+<header>
+<nav class="nav" id="navbar" aria-label="Navegação principal">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">
+      <span class="nav-brand-text">
+        <span class="nav-brand-name">Wesley Martins Jardim</span>
+        <span class="nav-brand-sub">Advocacia Extrajudicial</span>
+      </span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html#sobre">Sobre</a></li>
+      <li><a href="index.html#servicos">Serviços</a></li>
+      <li><a href="index.html#praticas">Na prática</a></li>
+      <li><a href="index.html#lgpd">LGPD</a></li>
+      <li><a href="index.html#seguranca">Segurança</a></li>
+      <li><a href="index.html#contato">Contato</a></li>
+      <li><a href="https://wa.me/5512992136428?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20um%20atendimento." class="nav-cta" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp" aria-hidden="true"></i> WhatsApp</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="navLinks">
+      <i class="fas fa-bars" aria-hidden="true"></i>
+    </button>
+  </div>
+</nav>
+</header>
+<main id="main">
+  <div class="page-head">
+    <div class="container">
+      <h1>Segurança da Informação</h1>
+      <p>Medidas técnicas e organizacionais adotadas neste site</p>
+    </div>
+  </div>
+  <article class="page-body">
+    <p class="page-meta"><i class="fas fa-calendar-check" aria-hidden="true"></i> Última atualização: 06 de novembro de 2026</p>
+    
+<p class="page-meta status-pill"><i class="fas fa-circle" aria-hidden="true"></i> Controles ativos em produção</p>
+
+<h2>1. Princípio adotado</h2>
+<p>
+  O site é o único ponto de entrada de dados pessoais de terceiros neste domínio.
+  Por isso, a arquitetura parte de três decisões: <strong>coletar o mínimo</strong>,
+  <strong>não confiar em nada que venha do navegador</strong> e
+  <strong>não guardar o que não é necessário</strong>.
+</p>
+<p>
+  Nenhum dado pessoal trafega em texto claro, nenhum IP é gravado e nenhuma senha é
+  armazenada de forma reversível.
+</p>
+
+<h2>2. Cifragem e transporte</h2>
+<div class="sec-block">
+  <h4><i class="fas fa-lock" aria-hidden="true"></i> TLS e HSTS</h4>
+  <p>Todo o tráfego usa HTTPS com TLS moderno. O cabeçalho <code>Strict-Transport-Security</code> é enviado com <code>max-age=31536000; includeSubDomains; preload</code>, impedindo downgrade para HTTP.</p>
+  <p>O cabeçalho <code>upgrade-insecure-requests</code> está na CSP, forçando qualquer recurso eventualmente referenciado em HTTP a ser carregado por HTTPS.</p>
+</div>
+
+<h2>3. Cabeçalhos de proteção</h2>
+<div class="sec-block">
+  <h4><i class="fas fa-shield-halved" aria-hidden="true"></i> Content Security Policy (CSP)</h4>
+  <p>A política é <strong>restritiva</strong>: <code>default-src 'none'</code>, com liberação apenas da própria origem para script, estilo, imagem e fonte.</p>
+  <p>Não há <code>unsafe-inline</code> nem <code>unsafe-eval</code> para scripts. Todo JavaScript está em arquivo externo servido pelo domínio, o que neutraliza a execução de script injetado em HTML.</p>
+  <p><code>frame-ancestors 'none'</code> e <code>object-src 'none'</code> bloqueiam enquadramento do site em iframes e plugins.</p>
+</div>
+<div class="sec-block">
+  <h4><i class="fas fa-list-check" aria-hidden="true"></i> Demais cabeçalhos</h4>
+  <p><code>X-Content-Type-Options: nosniff</code> — impede que o navegador "adivinhe" o tipo de um arquivo.</p>
+  <p><code>X-Frame-Options: DENY</code> — defesa redundante contra clickjacking.</p>
+  <p><code>Referrer-Policy: strict-origin-when-cross-origin</code> — não vaza caminho completo para terceiros.</p>
+  <p><code>Permissions-Policy</code> — câmera, microfone, geolocalização, pagamento e USB desativados.</p>
+  <p><code>Cross-Origin-Opener-Policy</code> e <code>Cross-Origin-Resource-Policy: same-origin</code> — isolamento entre origens.</p>
+  <p><code>X-Permitted-Cross-Domain-Policies: none</code> — bloqueia políticas de domínio cruzado legadas.</p>
+</div>
+
+<h2>4. Superfície de entrada</h2>
+<p>
+  O site público <strong>não possui formulário nem qualquer ponto de envio de dados</strong>.
+  As quatro páginas informativas são servidas como arquivo estático: não há campo, não há
+  <code>POST</code> e não há sessão criada para o visitante. Isso elimina, por construção,
+  a maior parte das classes de ataque típicas de sites institucionais — injeção por
+  formulário, XSS refletido, spam automatizado e <em>enumeration</em> de campos.
+</p>
+<div class="sec-block">
+  <h4><i class="fas fa-door-closed" aria-hidden="true"></i> O que permanece exposto</h4>
+  <p>Restam apenas dois pontos de entrada: o <strong>login da área administrativa</strong> e o acesso à leitura do banco por essa área. Ambos exigem credencial e são descritos na seção 6.</p>
+  <p>O endpoint herdado de envio de mensagem <code>api/contato.php</code> responde apenas com <code>410 Gone</code>, sem processar, gravar ou refletir nada.</p>
+</div>
+<div class="sec-block">
+  <h4><i class="fas fa-filter" aria-hidden="true"></i> Validação e sanitização</h4>
+  <p>Toda entrada que chega a ser processada — hoje, apenas o formulário de login — é normalizada no servidor: caracteres de controle removidos, espaços colapsados e tamanho limitado.</p>
+  <p>Nenhum conteúdo recebido é devolvido como HTML: toda saída passa por escape de <code>&amp; &lt; &gt; " '</code>, o que impede XSS refletido ou armazenado.</p>
+  <p>Consultas ao banco usam <em>prepared statements</em> reais do PDO, com emulação desligada, de modo que nenhum valor vindo do cliente é concatenado em SQL.</p>
+</div>
+<div class="sec-block">
+  <h4><i class="fas fa-robot" aria-hidden="true"></i> Proteção contra automação</h4>
+  <p>O login tem limitação de tentativas por origem, com contador persistido no banco e janela de expiração automática. O excesso retorna HTTP 429 sem revelar detalhes internos.</p>
+  <p>A comparação de senha usa <code>password_verify</code> sobre hash bcrypt e roda mesmo quando o usuário não existe, evitando distinguir usuário válido de inválido pelo tempo de resposta.</p>
+</div>
+
+<h2>5. Banco de dados</h2>
+<div class="sec-block">
+  <h4><i class="fas fa-database" aria-hidden="true"></i> Consultas e integridade</h4>
+  <p>O banco é um <strong>SQLite distribuído na borda</strong> (Cloudflare D1). <strong>Todas</strong> as consultas usam <em>prepared statements</em> com vinculação de parâmetros — não existe concatenação de texto SQL, o que elimina a via clássica de SQL injection.</p>
+  <p>Os filtros de status são validados contra uma lista fechada <code>novo | atendido | arquivado</code>; o limite de linhas é convertido em inteiro e truncado entre 1 e 500.</p>
+  <p>Busca textual escapa os curingas <code>%</code>, <code>_</code> e <code>\</code> antes de montar o <code>LIKE</code>, evitando varredura ampla acidental.</p>
+  <p>Índices em <code>created_at</code>, <code>status</code>, <code>expira_em</code> e <code>chave</code> evitam leitura completa das tabelas.</p>
+</div>
+<div class="sec-block">
+  <h4><i class="fas fa-user-secret" aria-hidden="true"></i> Minimização de dados</h4>
+  <p>O IP é transformado em <code>SHA-256(sal + "|" + ip)</code> truncado em 32 caracteres. O valor original nunca é gravado nem devolvido em tela.</p>
+  <p>O <code>user_agent</code> é truncado e serve apenas para diagnóstico de abuso.</p>
+  <p>A prova de consentimento é registrada por coluna própria (<code>consentimento</code>) e pela data do envio, permitindo demonstrar a base legal (art. 8º, § 1º, da LGPD).</p>
+</div>
+<div class="sec-block">
+  <h4><i class="fas fa-clock-rotate-left" aria-hidden="true"></i> Retenção e eliminação</h4>
+  <p>Cada registro recebe <code>expira_em = created_at + 24 meses</code>. O expurgo roda de forma preguiçosa no próprio tráfego, sem depender de tarefa agendada.</p>
+  <p>A anonimização substitui nome, e-mail, telefone, mensagem, IP e agente por marcadores e grava <code>expurgado_em</code> — o registro deixa de ser dado pessoal, mas o histórico de atendimento permanece auditável.</p>
+  <p>O titular pode pedir eliminação imediata (art. 18, VI, da LGPD), executada pela mesma rotina.</p>
+</div>
+
+<h2>6. Área administrativa</h2>
+<div class="sec-block">
+  <h4><i class="fas fa-key" aria-hidden="true"></i> Autenticação</h4>
+  <p>A senha não é armazenada: guarda-se apenas o resultado de <strong>PBKDF2-HMAC-SHA256 com 210.000 iterações</strong> e sal exclusivo, conforme recomendação OWASP.</p>
+  <p>A comparação do hash é feita em <strong>tempo constante</strong>, o que evita extração de informação por medição de tempo de resposta.</p>
+  <p>A sessão é um token sem estado: <code>base64(usuario:expiração:nonce)</code> assinado com HMAC-SHA256 usando segredo do ambiente. O servidor não guarda tabela de sessões e qualquer adulteração invalida o token.</p>
+  <p>A cookie de sessão é <code>HttpOnly</code> (inacessível a JavaScript), <code>Secure</code> (só HTTPS) e <code>SameSite=Strict</code> (não acompanha requisições vindas de outros sites). Expira em 8 horas.</p>
+  <p>O login também é limitado por origem e por janela de tempo, com registro de falhas.</p>
+</div>
+<div class="sec-block">
+  <h4><i class="fas fa-user-lock" aria-hidden="true"></i> CSRF e origem</h4>
+  <p>Todo formulário administrativo carrega um token CSRF derivado por HMAC da própria sessão: um token só vale para aquela sessão e não pode ser reutilizado por terceiro.</p>
+  <p>Além do token, as requisições de escrita são checadas quanto ao <code>Origin</code>/<code>Referer</code> — POST de domínio estrangeiro é recusado antes de qualquer efeito no banco.</p>
+  <p>Requisições de alteração usam apenas POST; não há mudança de estado por GET.</p>
+</div>
+<div class="sec-block">
+  <h4><i class="fas fa-eye-slash" aria-hidden="true"></i> Sessão e cache</h4>
+  <p>Páginas administrativas enviam <code>Cache-Control: no-store</code> e <code>X-Robots-Tag: noindex, nofollow</code>, evitando retenção em cache de navegador, proxy ou indexação por buscadores.</p>
+  <p>O logout destrói a cookie no navegador imediatamente.</p>
+</div>
+
+<h2>7. Registro de eventos (auditoria)</h2>
+<p>
+  Eventos relevantes são gravados em tabela própria, com data, tipo e hash de IP:
+  login bem-sucedido, falha de login, bloqueio por excesso de requisições,
+  anonimização e expurgo. O registro de auditoria <strong>não contém</strong>
+  nome, e-mail, telefone ou conteúdo de mensagem.
+</p>
+<p>
+  A gravação é tolerante a falha: erro na auditoria nunca derruba o atendimento do
+  visitante.
+</p>
+
+<h2>8. Dependências e cadeia de suprimentos</h2>
+<p>
+  O site não carrega nada de CDN externa. Fontes tipográficas, ícones, folhas de estilo
+  e scripts são servidos pelo próprio domínio, o que elimina risco de terceiro
+  comprometido, reduz requisições de rede e mantém a CSP fechada em <code>'self'</code>.
+</p>
+<p>
+  As bibliotecas de servidor são mantidas em versões fixadas e atualizadas quando há
+  correção de segurança relevante.
+</p>
+
+<h2>9. Limites e transparência</h2>
+<p>
+  Nenhum sistema é imune a falhas. Este site adota controles proporcionais ao risco de
+  um site informativo de advogado — não é, e não pretende ser, ambiente de guarda de
+  documentos de clientes. Documentos, contratos e peças processuais <strong>não devem
+  ser enviados por e-mail sem canal adequado combinado previamente</strong>.
+</p>
+<p>
+  Suspeita de vulnerabilidade ou de uso indevido pode ser comunicada diretamente para
+  <a href="mailto:wesley.martins.jardim@adv.oabsp.org.br">wesley.martins.jardim@adv.oabsp.org.br</a>. Relatos de boa-fé são analisados e respondidos.
+</p>
+
+<h2>10. Base normativa</h2>
+<ul>
+  <li>Lei 13.709/2018 (LGPD), em especial arts. 6º, 7º, 8º, 18, 19, 46 e 48;</li>
+  <li>Marco Civil da Internet (Lei 12.965/2014), arts. 7º e 15;</li>
+  <li>Provimento OAB nº 205/2021 e Código de Ética e Disciplina (Res. CFOAB 02/2015);</li>
+  <li>Recomendações OWASP (Application Security Verification Standard e Password Storage Cheat Sheet).</li>
+</ul>
+
+    <p class="page-voltar">
+      <a href="index.html" class="btn-secondary"><i class="fas fa-arrow-left" aria-hidden="true"></i> Voltar ao site</a>
+    </p>
+  </article>
+</main>
+<footer class="footer">
+  <div class="footer-main">
+    <div class="footer-brand">
+      <h3>Wesley Martins Jardim</h3>
+      <p>OAB/SP 518.369<br>Advocacia extrajudicial e administrativa.<br>Litoral Norte de São Paulo e atendimento digital.</p>
+    </div>
+    <nav class="footer-col" aria-labelledby="f-nav">
+      <h4 id="f-nav">Navegação</h4>
+      <a href="index.html#sobre">Sobre</a>
+      <a href="index.html#servicos">Serviços</a>
+      <a href="index.html#praticas">Na prática</a>
+      <a href="index.html#lgpd">LGPD</a>
+      <a href="index.html#como-funciona">Como funciona</a>
+      <a href="index.html#contato">Contato</a>
+    </nav>
+    <nav class="footer-col" aria-labelledby="f-legal">
+      <h4 id="f-legal">Legal</h4>
+      <a href="politica-privacidade.html">Política de Privacidade</a>
+      <a href="termos-uso.html">Termos de Uso</a>
+      <a href="seguranca.html">Segurança da Informação</a>
+    </nav>
+    <div class="footer-col">
+      <h4>Contato</h4>
+      <a href="mailto:wesley.martins.jardim@adv.oabsp.org.br">E-mail profissional</a>
+      <a href="https://wa.me/5512992136428?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20um%20atendimento." target="_blank" rel="noopener noreferrer">WhatsApp</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Wesley Martins Jardim &mdash; OAB/SP 518.369. Todos os direitos reservados.</p>
+    <p>Conteúdo informativo &bull; Provimento OAB 205/2021 &bull; <a href="seguranca.html">Segurança</a></p>
+  </div>
+</footer>
+
+<a href="https://wa.me/5512992136428?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20um%20atendimento." class="wa-float" target="_blank" rel="noopener noreferrer" aria-label="Falar pelo WhatsApp" title="Falar pelo WhatsApp">
+  <i class="fab fa-whatsapp" aria-hidden="true"></i>
+</a>
+<a href="index.html#hero" class="scroll-top" id="scrollTop" aria-label="Voltar ao topo">
+  <i class="fas fa-chevron-up" aria-hidden="true"></i>
+</a>
+
+<div class="cookie" id="cookieBanner" role="dialog" aria-live="polite" aria-label="Aviso de cookies">
+  <div class="cookie-inner">
+    <p>
+      <i class="fas fa-shield-halved" aria-hidden="true"></i>
+      Este site <strong>não utiliza cookies de publicidade ou de análise de audiência</strong>.
+      A única cookie gravada é a de sessão, exclusiva da área administrativa.
+      Detalhes na <a href="politica-privacidade.html">Política de Privacidade</a>.
+    </p>
+    <div class="cookie-btns">
+      <button type="button" class="ck-accept" id="ckAccept">Entendi</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>
